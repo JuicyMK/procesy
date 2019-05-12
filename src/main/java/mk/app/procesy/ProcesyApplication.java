@@ -8,7 +8,6 @@ public class ProcesyApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProcesyApplication.class, args);
-		int a = 3;
 	}
 
 }
