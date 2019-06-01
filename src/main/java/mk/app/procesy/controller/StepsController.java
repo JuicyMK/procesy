@@ -195,8 +195,8 @@ public class StepsController implements Initializable {
     	scopeTo = new JFXTextField();
     	value = new JFXTextField();
     	
-    	scopeFrom.setPromptText("Początek zakresu");
-    	scopeTo.setPromptText("Podaj koniec zakresu");
+    	scopeFrom.setPromptText("Początek zakresu (minimum: " + ((dataSet != null) ? dataSet.getFirstTmp() : 0) + ")");
+    	scopeTo.setPromptText("Podaj koniec zakresu (maximum: " + ((dataSet != null) ? dataSet.getLastTmp() : 0)+ ")");
     	value.setPromptText("Ciepło");
     	
     	Label tmpDescription = new Label("Podaj zakres temperatur");
