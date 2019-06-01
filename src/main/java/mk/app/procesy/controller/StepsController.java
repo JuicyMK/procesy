@@ -32,7 +32,10 @@ public class StepsController implements Initializable {
     @FXML private AnchorPane rightAnchor;
     
     private List<JFXRadioButton> radioButtons = new ArrayList<>();
+    
     private VBox menu;
+    private VBox upperMenu;
+    private VBox lowerMenu;
     
     //Additional fields in contextMenu
     private JFXTextField firstInput;
@@ -55,13 +58,18 @@ public class StepsController implements Initializable {
 		radioButtons.add(atTheBegining);
 		
 		//Initialize contextMenu pane
-		menu = new VBox();
-		menu.setSpacing(3.0);
+		menu = new VBox(3.0);
+		upperMenu = new VBox(3.0);
+		lowerMenu = new VBox(3.0);
+		menu.getChildren().addAll(upperMenu, lowerMenu);
+		
 		contextMenu.getChildren().add(menu);
 		contextMenu.setTopAnchor(menu, 0.0);
 		contextMenu.setLeftAnchor(menu, 0.0);
 		contextMenu.setBottomAnchor(menu, 0.0);
 		contextMenu.setRightAnchor(menu, 0.0);
+		
+		initializeCommonFields();
 		
 		normalDist.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -135,26 +143,26 @@ public class StepsController implements Initializable {
     
     private void buildContextMenu(ActionEvent event) {
     	JFXRadioButton radioBtn = (JFXRadioButton) event.getSource();
-    	menu.getChildren().clear();
+    	upperMenu.getChildren().clear();
     	if (radioBtn.equals(normalDist)) {
     		initializeBothField("Wartości zostaną dodane zgodnie z", "rozkładem normalnym", "Podaj wartośc oczekiwaną",
     				"Podaj wariancję");
-    		log.info("Buduje menu kontekstowe dla rozkładu normalnego");
+    		log.debug("Buduje menu kontekstowe dla rozkładu normalnego");
     	} else if (radioBtn.equals(random)) {
-    		initializeOnlyDescription("Wartość ciepła zostanie rozlosowana", "na wskazanym zakresie");
-    		log.info("Buduje menu kontekstowe dla funkcji losującej");
+    		initializeOnlyDescription("Wartość ciepła zostanie rozlosowana", "we wskazanym zakresie");
+    		log.debug("Buduje menu kontekstowe dla funkcji losującej");
     	} else if (radioBtn.equals(linear)) {
     		initializeBothField("Wskaż parametry funkcji liniowej", "", "Podaj współczynnik a", "Podaj współczynnik b");
-    		log.info("Buduje menu kontekstowe dla funkcji liniowej");
+    		log.debug("Buduje menu kontekstowe dla funkcji liniowej");
     	} else if (radioBtn.equals(evenly)) {
     		initializeOnlyDescription("Podana wartość zostanie równomiernie", "rozmieszczona na przedziale");
-    		log.info("Buduje menu kontekstowe dla rozkładu równomiernego");
+    		log.debug("Buduje menu kontekstowe dla rozkładu równomiernego");
     	} else if (radioBtn.equals(atTheEnd)) {
     		initializeOnlyDescription("Podana wartośc zostanie dodana", "na końcu przedziału");
-    		log.info("Buduje menu kontekstowe dla dodawania wartości na koniec przedziału");
+    		log.debug("Buduje menu kontekstowe dla dodawania wartości na koniec przedziału");
     	} else if (radioBtn.equals(atTheBegining)) {
     		initializeOnlyDescription("Podana wartość zostanie dodane", "na początku przedziału");
-    		log.info("Buduje menu kontekstowe dla dodawania wartości na początek przedziału");
+    		log.debug("Buduje menu kontekstowe dla dodawania wartości na początek przedziału");
     	} else {
     		log.error("Nie znaleziono dopasowania dla wyboru menu contextowego");
     	}
@@ -164,23 +172,9 @@ public class StepsController implements Initializable {
     	Label descFirstLine = new Label(descriptionFirstLine);
     	Label descSecondLine = new Label(descriptionSecondLine);
     	
-    	menu.getChildren().addAll(descFirstLine, descSecondLine);
-    	initializeCommonFields();
+    	upperMenu.getChildren().addAll(descFirstLine, descSecondLine);
     }
-    
-	/*
-	 * private void initializeOneFild(String descriptionFirstLine, String
-	 * descriptionSecondLine, String firstTextMessage) { firstInput = new
-	 * JFXTextField();
-	 * 
-	 * firstInput.setPromptText(firstTextMessage); Label descFirstLine = new
-	 * Label(descriptionFirstLine); Label descSecondLine = new
-	 * Label(descriptionSecondLine);
-	 * 
-	 * menu.getChildren().addAll(descFirstLine, descSecondLine, firstInput);
-	 * initializeCommonFields(); }
-	 */
-    
+        
     private void initializeBothField(String descriptionFirstLine, String descriptionSecondLine, String firstPromptTextMessage, 
     		String secondPromptTextMessage) {
     	firstInput = new JFXTextField();
@@ -192,8 +186,7 @@ public class StepsController implements Initializable {
 		Label descFirstLine = new Label(descriptionFirstLine);
 		Label descSecondLine = new Label(descriptionSecondLine);
 		
-		menu.getChildren().addAll(descFirstLine, descSecondLine, firstInput, secondInput);
-		initializeCommonFields();
+		upperMenu.getChildren().addAll(descFirstLine, descSecondLine, firstInput, secondInput);
     }
     
     private void initializeCommonFields() {
@@ -210,7 +203,7 @@ public class StepsController implements Initializable {
     	Label tmpDescription = new Label("Podaj zakres temperatur");
     	Label valueDescription = new Label("Podaj ilość ciepła do rozlokowania");
     	
-    	menu.getChildren().addAll(new Label(), separator, tmpDescription, scopeFrom, scopeTo,
+    	lowerMenu.getChildren().addAll(new Label(), separator, tmpDescription, scopeFrom, scopeTo,
     			valueDescription, value);
     }
     
