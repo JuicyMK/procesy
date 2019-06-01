@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<Pane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="658.0" prefWidth="984.0">
+         <children>
+            <AnchorPane maxWidth="-Infinity" minHeight="-Infinity" prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: #e7e7e7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Text layoutX="22.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wybierz krok do dodania" wrappingWidth="256.6708984375">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Text>
+                  <JFXRadioButton fx:id="normalDist" layoutX="37.0" layoutY="71.0" text="Rozkład normalny" AnchorPane.leftAnchor="20.0" />
+                  <JFXRadioButton fx:id="random" layoutX="28.0" layoutY="98.0" text="Losowanie" AnchorPane.leftAnchor="20.0" />
+                  <JFXRadioButton fx:id="linear" layoutX="27.0" layoutY="126.0" text="Funkcja liniowa" AnchorPane.leftAnchor="20.0" />
+                  <JFXRadioButton fx:id="evenly" layoutX="20.0" layoutY="155.0" text="Rozłóż równomiernie" AnchorPane.leftAnchor="20.0" />
+                  <JFXRadioButton fx:id="atTheEnd" layoutX="19.0" layoutY="185.0" text="Dodaj na końcu" AnchorPane.leftAnchor="19.0" />
+                  <JFXRadioButton fx:id="atTheBegining" layoutX="18.0" layoutY="215.0" text="Dodaj na początku" AnchorPane.leftAnchor="18.0" />
+                  <Separator layoutX="11.0" layoutY="289.0" prefWidth="200.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" />
+                  <AnchorPane fx:id="optionAnchor" layoutX="31.0" layoutY="303.0" prefHeight="321.0" prefWidth="278.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="303.0" />
+                  <JFXButton layoutX="11.0" layoutY="246.0" onAction="#addAction" style="-fx-background-color: #373A36;" text="Dodaj" textFill="WHITE" AnchorPane.bottomAnchor="381.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="rightAnchor" layoutX="646.0" layoutY="181.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</Pane>
