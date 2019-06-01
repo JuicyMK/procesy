@@ -20,8 +20,6 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
@@ -128,7 +126,14 @@ public class MainController implements Initializable{
         catch (IOException e) {
             e.printStackTrace();
         }
+        
+        updateSteps();
     }
+
+	private void updateSteps() {
+		// TODO add logic for updated steps list(including delete steps)
+		
+	}
 
 	@FXML
     void saveFile(ActionEvent event) {

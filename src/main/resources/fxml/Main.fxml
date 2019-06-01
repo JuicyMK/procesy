@@ -11,9 +11,9 @@
    <children>
       <SplitPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="637.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-1.0">
          <items>
-            <AnchorPane prefHeight="644.0" prefWidth="298.0" style="-fx-background-color: #e7e7e7;">
+            <AnchorPane focusTraversable="true" prefHeight="644.0" prefWidth="298.0" style="-fx-background-color: #e7e7e7;">
                <children>
-                  <JFXButton fx:id="selectFileBtn" layoutX="109.0" layoutY="40.0" maxHeight="40.0" minHeight="40.0" onAction="#readData" prefHeight="40.0" style="-fx-background-color: #373A36; -fx-pref-height: 40; -fx-max-height: 40; -fx-min-height: 40;" styleClass="jfx-button" text="Wczytaj dane" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+                  <JFXButton fx:id="selectFileBtn" focusTraversable="false" layoutX="109.0" layoutY="40.0" maxHeight="40.0" minHeight="40.0" onAction="#readData" prefHeight="40.0" style="-fx-background-color: #373A36; -fx-pref-height: 40; -fx-max-height: 40; -fx-min-height: 40;" styleClass="jfx-button" text="Wczytaj dane" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font></JFXButton>
