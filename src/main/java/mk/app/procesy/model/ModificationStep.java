@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-public interface ModificationStep {
+public abstract class ModificationStep {
 
-	public void modify(List<Pair<Integer, Double>> tmpAndH, int from, int to);
+	public Integer form;
+	public Integer to;
+	
+	public abstract void modify(List<Pair<Integer, Double>> tmpAndH, int from, int to);
 }
