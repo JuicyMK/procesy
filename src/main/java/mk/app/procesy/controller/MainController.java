@@ -8,10 +8,15 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.springframework.util.CollectionUtils;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXTextArea;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,7 +26,10 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
@@ -35,6 +43,7 @@ import mk.app.procesy.math.Interpolation;
 @Slf4j
 public class MainController implements Initializable{
 
+	@FXML private AnchorPane mainPane;
 	@FXML private JFXButton selectFileBtn;
 	@FXML private JFXButton modifyBtn;
 	@FXML private JFXButton saveFileBtn1;
@@ -137,8 +146,41 @@ public class MainController implements Initializable{
 
 	@FXML
     void saveFile(ActionEvent event) {
-
+		if (data == null || CollectionUtils.isEmpty(data.getOrgTmpAndH())) {
+			showDialog("Błąd", "Brak danych do zapisania");
+			log.debug("Brak danych do zapisania");
+		}
     }
+	
+	private void showDialog(String title, String message) {
+		StackPane dialogPane = new StackPane();
+
+		mainPane.getChildren().add(dialogPane);
+		mainPane.setTopAnchor(dialogPane, 0.0);
+		mainPane.setLeftAnchor(dialogPane, 0.0);
+		mainPane.setBottomAnchor(dialogPane, 0.0);
+		mainPane.setRightAnchor(dialogPane, 0.0);
+
+		JFXDialogLayout dialogLayout = new JFXDialogLayout();
+		dialogLayout.setHeading(new Text(title));
+		dialogLayout.setBody(new Text(message));
+
+		JFXDialog confirmDeleteDialog = new JFXDialog(dialogPane, dialogLayout, JFXDialog.DialogTransition.CENTER);
+		JFXButton buttonExit = new JFXButton("Ok");
+
+		buttonExit.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+			confirmDeleteDialog.close();
+			mainPane.getChildren().remove(dialogPane);
+		});
+
+		confirmDeleteDialog.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+			confirmDeleteDialog.close();
+			mainPane.getChildren().remove(dialogPane);
+		});
+
+		dialogLayout.setActions(buttonExit);
+		confirmDeleteDialog.show();
+	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void updateChart() {
