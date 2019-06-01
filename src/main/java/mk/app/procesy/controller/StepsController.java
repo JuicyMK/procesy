@@ -17,7 +17,7 @@ import javafx.scene.control.Separator;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import lombok.extern.slf4j.Slf4j;
-import mk.app.procesy.model.DataSet;
+import mk.app.procesy.dataService.DataSet;
 
 @Slf4j
 public class StepsController implements Initializable {
@@ -128,7 +128,6 @@ public class StepsController implements Initializable {
 		});
 
 	}
-    
     
     @FXML void addAction(ActionEvent event) {
     	//Validate, add step to dataSet and close window if OK

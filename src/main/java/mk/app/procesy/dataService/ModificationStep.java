@@ -1,4 +1,4 @@
-package mk.app.procesy.model;
+package mk.app.procesy.dataService;
 
 import java.util.List;
 

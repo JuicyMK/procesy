@@ -27,10 +27,10 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
+import mk.app.procesy.dataService.DataSet;
 import mk.app.procesy.io.Reader;
 import mk.app.procesy.math.HeatProcessor;
 import mk.app.procesy.math.Interpolation;
-import mk.app.procesy.model.DataSet;
 
 @Slf4j
 public class MainController implements Initializable{
