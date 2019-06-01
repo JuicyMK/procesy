@@ -27,12 +27,13 @@
                   <JFXRadioButton fx:id="atTheEnd" layoutX="19.0" layoutY="185.0" text="Dodaj na końcu" AnchorPane.leftAnchor="19.0" />
                   <JFXRadioButton fx:id="atTheBegining" layoutX="18.0" layoutY="215.0" text="Dodaj na początku" AnchorPane.leftAnchor="18.0" />
                   <Separator layoutX="11.0" layoutY="289.0" prefWidth="200.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" />
-                  <AnchorPane fx:id="optionAnchor" layoutX="31.0" layoutY="303.0" prefHeight="321.0" prefWidth="278.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="303.0" />
+                  <AnchorPane fx:id="contextMenu" layoutX="31.0" layoutY="303.0" prefHeight="321.0" prefWidth="278.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="303.0" />
                   <JFXButton layoutX="11.0" layoutY="246.0" onAction="#addAction" style="-fx-background-color: #373A36;" text="Dodaj" textFill="WHITE" AnchorPane.bottomAnchor="381.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </JFXButton>
+                  <JFXRadioButton fx:id="focusHolder" layoutY="4.0" visible="false" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="rightAnchor" layoutX="646.0" layoutY="181.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
