@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.springframework.util.CollectionUtils;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,5 +37,19 @@ public class DataSet {
 		orgTmpAndH = IntStream.range(0, tmp.size() - 1).boxed()
 				.map(e -> Pair.of(tmp.get(e), h.get(e)))
 				.collect(Collectors.toList());
+	}
+	
+	public int getFirstTmp() {
+		if (!CollectionUtils.isEmpty(orgTmpAndH)) {
+			return orgTmpAndH.get(0).getLeft();
+		}
+		return 0;
+	}
+	
+	public int getLastTmp() {
+		if (!CollectionUtils.isEmpty(orgTmpAndH)) {
+			return orgTmpAndH.get(orgTmpAndH.size() -1).getLeft();
+		}
+		return 0;
 	}
 }
