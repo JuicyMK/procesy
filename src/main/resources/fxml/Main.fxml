@@ -11,7 +11,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="637.0" prefWidth="1152.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mk.app.procesy.controller.MainController">
    <children>
       <SplitPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="637.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-1.0">
@@ -20,7 +19,7 @@
                <children>
                   <JFXButton fx:id="selectFileBtn" layoutX="109.0" layoutY="40.0" maxHeight="40.0" minHeight="40.0" onAction="#readData" prefHeight="40.0" style="-fx-background-color: #373737; -fx-pref-height: 40; -fx-max-height: 40; -fx-min-height: 40;" styleClass="jfx-button" text="Wczytaj dane" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0" />
                   <JFXButton fx:id="computeBtn" layoutX="102.0" layoutY="78.0" maxHeight="40.0" minHeight="40.0" onAction="#compute" prefHeight="40.0" style="-fx-background-color: #373737; -fx-pref-height: 40; -fx-min-height: 40; -fx-max-height: 40;" styleClass="jfx-button" text="Oblicz" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="80.0" />
-                  <JFXButton fx:id="saveFileBtn11" layoutX="118.0" layoutY="141.0" maxHeight="40.0" minHeight="40.0" onAction="#saveFile" prefHeight="40.0" style="-fx-background-color: #373737; -fx-pref-height: 40; -fx-min-height: 40; -fx-max-height: 40;" styleClass="jfx-button" text="Zapisz" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="130.0" />
+                  <JFXButton fx:id="saveFileBtn11" layoutX="118.0" layoutY="141.0" maxHeight="40.0" minHeight="40.0" onAction="#saveFile" prefHeight="40.0" style="-fx-background-color: #373737; -fx-pref-height: 40; -fx-min-height: 40; -fx-max-height: 40;" styleClass="jfx-button" text="Zapisz wyniki" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="130.0" />
                   <ScrollPane fx:id="optionsSP" layoutX="14.0" layoutY="189.0" prefHeight="433.0" prefWidth="275.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="200.0">
                      <content>
                         <VBox maxWidth="270.0" minWidth="270.0" prefHeight="200.0" prefWidth="270.0" />

@@ -30,14 +30,14 @@ public class Reader {
 		return instance;
 	}
 
-	public List<Pair<Double, Double>> parse() {
+	public List<Pair<Integer, Double>> parse() {
 		log.info("Parsing  file");
 		if (file == null) {
 			log.warn("File to parse is null");
 			return Collections.emptyList();
 		}
 
-		List<Pair<Double, Double>> loadedData = new ArrayList<>();
+		List<Pair<Integer, Double>> loadedData = new ArrayList<>();
 		BufferedReader br = null;
 		try {	
 			br = new BufferedReader(new FileReader(file));
@@ -49,7 +49,7 @@ public class Reader {
 						Double tmp = Double.parseDouble(part[0]);
 						Double cp = Double.parseDouble(part[1]);
 
-						loadedData.add(Pair.of(tmp, cp));
+						loadedData.add(Pair.of(tmp.intValue(), cp));
 					} catch (NumberFormatException | NullPointerException singleDataException) {
 						log.warn("Single data parsing error in line {}, {}", line, singleDataException);
 					}
