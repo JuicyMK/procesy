@@ -11,6 +11,6 @@ import lombok.Setter;
 @Setter
 public class DataSet {
 	
-	private List<Pair<Double, Double>> tmpAndCp;
+	private List<Pair<Integer, Double>> tmpAndCp;
 
 }
