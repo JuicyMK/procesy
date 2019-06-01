@@ -1,6 +1,7 @@
 package mk.app.procesy.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -12,14 +13,20 @@ import com.jfoenix.controls.JFXButton;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import mk.app.procesy.io.Reader;
@@ -31,7 +38,7 @@ import mk.app.procesy.model.DataSet;
 public class MainController implements Initializable{
 
 	@FXML private JFXButton selectFileBtn;
-	@FXML private JFXButton computeBtn;
+	@FXML private JFXButton modifyBtn;
 	@FXML private JFXButton saveFileBtn1;
     @FXML private AnchorPane rightAnchor;
     @FXML private ScrollPane stepsSP;
@@ -103,8 +110,24 @@ public class MainController implements Initializable{
 	}
 
 	@FXML
-    void compute(ActionEvent event) {
-
+    void modify(ActionEvent event) {
+        try {
+        	StepsController stepsController = new StepsController();
+        	stepsController.setDataSet(data);
+        	
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Steps.fxml"));
+            fxmlLoader.setController(stepsController);
+            
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.setTitle("Dodaj krok");
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 	@FXML
