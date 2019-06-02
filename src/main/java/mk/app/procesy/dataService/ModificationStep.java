@@ -4,10 +4,15 @@ import java.util.List;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-public abstract class ModificationStep {
-
-	public Integer form;
-	public Integer to;
+public interface ModificationStep {
 	
-	public abstract void modify(List<Pair<Integer, Double>> tmpAndH, int from, int to);
+	public abstract void modify(List<Pair<Integer, Double>> tmpAndH);
+	
+	public void setFrom(int from);
+	
+	public int getFrom();
+	
+	public void setTo(int to);
+	
+	public int getTo();
 }
