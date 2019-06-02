@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="658.0" prefWidth="984.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="stepsMainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="658.0" prefWidth="984.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane maxWidth="-Infinity" minHeight="-Infinity" prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: #e7e7e7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -24,7 +24,7 @@
             <JFXRadioButton fx:id="atTheBegining" layoutX="18.0" layoutY="215.0" text="Dodaj na początku" AnchorPane.leftAnchor="18.0" />
             <Separator layoutX="11.0" layoutY="289.0" prefWidth="200.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" />
             <AnchorPane fx:id="contextMenu" layoutX="31.0" layoutY="303.0" prefHeight="321.0" prefWidth="278.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="303.0" />
-            <JFXButton layoutX="11.0" layoutY="246.0" onAction="#addAction" style="-fx-background-color: #373A36;" text="Dodaj" textFill="WHITE" AnchorPane.bottomAnchor="381.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0">
+            <JFXButton layoutX="11.0" layoutY="246.0" onAction="#addStep" style="-fx-background-color: #373A36;" text="Dodaj" textFill="WHITE" AnchorPane.bottomAnchor="381.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>

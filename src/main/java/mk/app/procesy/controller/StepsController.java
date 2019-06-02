@@ -39,6 +39,8 @@ import mk.app.procesy.dataService.RandomStep;
 @Slf4j
 public class StepsController implements Initializable {
 
+	@FXML private AnchorPane stepsMainPane;
+	
 	@FXML private JFXRadioButton normalDist;
     @FXML private JFXRadioButton random;
     @FXML private JFXRadioButton linear;
@@ -68,6 +70,7 @@ public class StepsController implements Initializable {
     private JFXButton preview;
     
     private DataSet dataSet;
+    private MainController mainController;
     
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -166,8 +169,16 @@ public class StepsController implements Initializable {
 
 	}
     
-    @FXML void addAction(ActionEvent event) {
-    	//Validate, add step to dataSet and close window if OK
+    @FXML void addStep(ActionEvent event) {
+    	ModificationStep step = readFieldsAndGetStep();
+    	step.modify(dataSet.getNewTmpAndH());
+    	if (step == null) {
+    		mainController.showDialog(stepsMainPane, "Uwaga", "Nie utworzono żadnego kroku ");
+    	} else {
+    		dataSet.addStep(step);
+    		mainController.updateSteps();
+    		mainController.updateMainChart();
+    	}
     }
     
     private void handleRadioButtonAction(ActionEvent event) {
@@ -466,9 +477,14 @@ public class StepsController implements Initializable {
 			chart.getData().clear();
 			chart.getData().add(exampleDistribution);
 		} 
-    }
+    } 
     
-    public void setDataSet(DataSet dataSet) {
+    void setDataSet(DataSet dataSet) {
     	this.dataSet = dataSet;
     }
+    
+    void setMainController(MainController mainController) {
+    	this.mainController = mainController;
+    }
+    
 }

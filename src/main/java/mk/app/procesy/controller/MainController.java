@@ -20,6 +20,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
@@ -93,13 +94,13 @@ public class MainController implements Initializable{
 			selectFileBtn.setText(selectedFile.getName());
 
 			prepareAndSaveDatas(reader);
-			updateChart();
+			updateMainChart();
 			
 			log.debug("Selected file {}", selectedFile.getName());
 		} else {
 			reader.setFile(null);
 			data = null;
-			updateChart();
+			updateMainChart();
 			
 			selectFileBtn.setText("Wczytaj dane");
 			log.warn("File not found");
@@ -126,12 +127,13 @@ public class MainController implements Initializable{
 	@FXML
     void modify(ActionEvent event) {
 		if (data == null) {
-			showDialog("Brak danych", "Przed dodaniem kolejnych kroków, wczytaj dane");
+			showDialog(mainPane, "Brak danych", "Przed dodaniem kolejnych kroków, wczytaj dane");
 			log.info("Brak danych: zablokowano możliwość próby dodania kolejnych korków.");
 		} else {
 			try {
 	        	StepsController stepsController = new StepsController();
 	        	stepsController.setDataSet(data);
+	        	stepsController.setMainController(this);
 	        	
 	            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Steps.fxml"));
 	            fxmlLoader.setController(stepsController);
@@ -146,22 +148,23 @@ public class MainController implements Initializable{
 	        catch (IOException e) {
 	            e.printStackTrace();
 	        }
-	        
-	        updateSteps();
 		}  
     }
 
-	private void updateSteps() {
+	void updateSteps() {
 		VBox stepMenu = new VBox(3.0);
 		Text stepsInfo = new Text("Lista dodanych kroków");
 		stepsInfo.setStyle("-fx-font-weight: bold; -fx-font-size: 16");
 		stepsInfo.setTextAlignment(TextAlignment.CENTER);
 		stepMenu.getChildren().add(stepsInfo);
+		stepMenu.setAlignment(Pos.CENTER);
 		stepsSP.setContent(stepMenu);
 		
 		if (data != null && !CollectionUtils.isEmpty(data.getSteps())) {
 			for (ModificationStep step : data.getSteps()) {
 				VBox stepObject = new VBox(3.0);
+				stepObject.setMinWidth(275.0);
+				stepObject.setAlignment(Pos.CENTER);
 				Text stepName = new Text(step.getName());
 				Text stepScope = new Text("Od: " + step.getFrom() + " do: " + step.getTo());
 				Text valueH = new Text("Dodano: " + step.getValueH());
@@ -175,20 +178,21 @@ public class MainController implements Initializable{
 
 	@FXML
     void saveFile(ActionEvent event) {
+		updateMainChart();
 		if (data == null || CollectionUtils.isEmpty(data.getOrgTmpAndH())) {
-			showDialog("Błąd", "Brak danych do zapisania");
+			showDialog(mainPane, "Błąd", "Brak danych do zapisania");
 			log.debug("Brak danych do zapisania");
 		}
     }
 	
-	private void showDialog(String title, String message) {
+	void showDialog(AnchorPane paneToDisplay, String title, String message) {
 		StackPane dialogPane = new StackPane();
 
-		mainPane.getChildren().add(dialogPane);
-		mainPane.setTopAnchor(dialogPane, 0.0);
-		mainPane.setLeftAnchor(dialogPane, 0.0);
-		mainPane.setBottomAnchor(dialogPane, 0.0);
-		mainPane.setRightAnchor(dialogPane, 0.0);
+		paneToDisplay.getChildren().add(dialogPane);
+		paneToDisplay.setTopAnchor(dialogPane, 0.0);
+		paneToDisplay.setLeftAnchor(dialogPane, 0.0);
+		paneToDisplay.setBottomAnchor(dialogPane, 0.0);
+		paneToDisplay.setRightAnchor(dialogPane, 0.0);
 
 		JFXDialogLayout dialogLayout = new JFXDialogLayout();
 		dialogLayout.setHeading(new Text(title));
@@ -199,12 +203,12 @@ public class MainController implements Initializable{
 
 		buttonExit.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
 			confirmDeleteDialog.close();
-			mainPane.getChildren().remove(dialogPane);
+			paneToDisplay.getChildren().remove(dialogPane);
 		});
 
 		confirmDeleteDialog.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
 			confirmDeleteDialog.close();
-			mainPane.getChildren().remove(dialogPane);
+			paneToDisplay.getChildren().remove(dialogPane);
 		});
 
 		dialogLayout.setActions(buttonExit);
@@ -212,17 +216,30 @@ public class MainController implements Initializable{
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void updateChart() {
+	void updateMainChart() {
 		log.debug("Aktualizuję wykres, tmp i h: ", data.getNewTmpAndH());
 		if (data != null) {
+			chart.getData().clear();
+			
 			XYChart.Series<Number, Number> orginalData = new XYChart.Series<Number, Number>();
-			orginalData.setName("Wczytane dane");
+			orginalData.setName("Oryginalne wartości");
 
 			for (Pair<Integer, Double> row : data.getOrgTmpAndH()) {
 				orginalData.getData().add(new XYChart.Data(row.getLeft(), row.getRight()));
 			}
 
 			chart.getData().add(orginalData);
+			
+			if (!CollectionUtils.isEmpty(data.getSteps())) {
+				XYChart.Series<Number, Number> dataWithSteps = new XYChart.Series<Number, Number>();
+				dataWithSteps.setName("Zaktualizowane wartości");
+
+				for (Pair<Integer, Double> row : data.getNewTmpAndH()) {
+					dataWithSteps.getData().add(new XYChart.Data(row.getLeft(), row.getRight()));
+				}
+				
+				chart.getData().add(dataWithSteps);
+			}
 		} 
 	}
 }
