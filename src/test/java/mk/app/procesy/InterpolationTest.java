@@ -71,4 +71,11 @@ public class InterpolationTest {
 		List<Pair<Integer, Double>> results = Interpolation.interpol(twoElementsSet);
 		assertArrayEquals(results.toArray(), twoElementsSetExpected.toArray());
 	}
+	
+	@Test
+	public void test() {
+		int a = Integer.parseInt("1");
+		
+		System.out.print(a);
+	}
 }
