@@ -16,6 +16,7 @@ public class AtTheBeginingStep extends ModificationStep {
 		this.valueH = valueH;
 	}
 
+	@Override
 	public List<Double> modify(List<Pair<Integer, Double>> tmpAndH) {
 		log.debug("AtTheBeginingStep: wyszykuje wartość do aktualizacji");
 		Integer fromValueIndex = lookForScope(tmpAndH).getLeft();

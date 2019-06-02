@@ -17,6 +17,7 @@ public class EvenlyStep extends ModificationStep{
 		this.valueH = valueH;
 	}
 	
+	@Override
 	public List<Double> modify(List<Pair<Integer, Double>> tmpAndH) {
 		log.debug("EvenlyStep: wyszukuje wartości do aktualizacji");
 		Pair<Integer, Integer> fromAndToInxs = lookForScope(tmpAndH);
