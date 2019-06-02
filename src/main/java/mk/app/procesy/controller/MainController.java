@@ -25,17 +25,22 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import mk.app.procesy.dataService.DataSet;
+import mk.app.procesy.dataService.ModificationStep;
 import mk.app.procesy.io.Reader;
 import mk.app.procesy.math.HeatProcessor;
 import mk.app.procesy.math.Interpolation;
@@ -71,6 +76,8 @@ public class MainController implements Initializable{
 		rightAnchor.setLeftAnchor(chart, 10.0);
 		rightAnchor.setBottomAnchor(chart, 10.0);
 		rightAnchor.setRightAnchor(chart, 10.0);
+		
+		updateSteps();
 	}
 
 	@FXML
@@ -145,8 +152,25 @@ public class MainController implements Initializable{
     }
 
 	private void updateSteps() {
-		// TODO add logic for updated steps list(including delete steps)
+		VBox stepMenu = new VBox(3.0);
+		Text stepsInfo = new Text("Lista dodanych kroków");
+		stepsInfo.setStyle("-fx-font-weight: bold; -fx-font-size: 16");
+		stepsInfo.setTextAlignment(TextAlignment.CENTER);
+		stepMenu.getChildren().add(stepsInfo);
+		stepsSP.setContent(stepMenu);
 		
+		if (data != null && !CollectionUtils.isEmpty(data.getSteps())) {
+			for (ModificationStep step : data.getSteps()) {
+				VBox stepObject = new VBox(3.0);
+				Text stepName = new Text(step.getName());
+				Text stepScope = new Text("Od: " + step.getFrom() + " do: " + step.getTo());
+				Text valueH = new Text("Dodano: " + step.getValueH());
+				Separator separator = new Separator();
+				
+				stepObject.getChildren().addAll(stepName, stepScope, valueH, separator);
+				stepMenu.getChildren().add(stepObject);
+			}
+		}
 	}
 
 	@FXML
