@@ -20,9 +20,9 @@ public class EvenlyStep extends ModificationStep{
 	@Override
 	public List<Double> modify(List<Pair<Integer, Double>> tmpAndH) {
 		log.debug("EvenlyStep: wyszukuje wartości do aktualizacji");
-		Pair<Integer, Integer> fromAndToInxs = lookForScope(tmpAndH);
-		int fromIdx = fromAndToInxs.getLeft();
-		int toIdx = fromAndToInxs.getRight();
+		Pair<Integer, Integer> fromAndToIdxs = lookForScope(tmpAndH);
+		int fromIdx = fromAndToIdxs.getLeft();
+		int toIdx = fromAndToIdxs.getRight();
 		
 		double chunk = valueH / ((double) (to - from + 1));
 		log.debug("EvenlyStep: rozkładam H {}, na porcję wielkości: {}", valueH, chunk);
@@ -43,5 +43,4 @@ public class EvenlyStep extends ModificationStep{
 		return results;
 	}
 
-	
 }
