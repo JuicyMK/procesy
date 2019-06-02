@@ -13,15 +13,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-@Getter
-@Setter
 @NoArgsConstructor
 @Slf4j
 public class DataSet {
 	
+	@Getter
+	@Setter
 	private List<Pair<Integer, Double>> orgTmpAndH;
+	
+	@Getter
+	@Setter
 	private List<Pair<Integer, Double>> newTmpAndH;
 	
+	@Getter
 	private List<ModificationStep> steps; 
 
 	public DataSet(List<Integer> tmp, List<Double> h) throws Exception {
@@ -34,9 +38,29 @@ public class DataSet {
 			throw new Exception("Niewłaściwe rozmiary list tmp i h");
 		}
 		
-		orgTmpAndH = IntStream.range(0, tmp.size() - 1).boxed()
+		orgTmpAndH = IntStream.range(0, tmp.size()).boxed()
 				.map(e -> Pair.of(tmp.get(e), h.get(e)))
 				.collect(Collectors.toList());
+		
+		newTmpAndH = IntStream.range(0, tmp.size()).boxed()
+				.map(e -> Pair.of(tmp.get(e), h.get(e)))
+				.collect(Collectors.toList());
+	}
+	
+	public void addStep(ModificationStep step) {
+		List<Double> stepResults = step.getLastResult();
+		if (newTmpAndH.size() != stepResults.size()) {
+			log.error("Błąd modyfikacji wartości H. Listy wartości mają różne długości");
+			return;
+		}
+		
+		IntStream.range(0, newTmpAndH.size()).boxed().forEachOrdered(e -> {
+			Pair<Integer, Double> orgValue = newTmpAndH.get(e);
+			newTmpAndH.set(e, Pair.of(orgValue.getLeft(), orgValue.getRight() + stepResults.get(e)));
+		});
+		
+		steps.add(step);
+		log.debug("Zaktualizowano dane wynikowe");
 	}
 	
 	public int getFirstTmp() {

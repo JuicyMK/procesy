@@ -4,14 +4,20 @@ import java.util.List;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public abstract class ModificationStep {
 	
+	@Getter
 	protected int from;
+	@Getter
 	protected int to;
+	@Getter
 	protected double valueH;
+	@Getter
+	protected List<Double> lastResult;
 	
 	public abstract List<Double> modify(List<Pair<Integer, Double>> tmpAndH);
 	
@@ -34,15 +40,6 @@ public abstract class ModificationStep {
 	
 	public abstract String getName();
 	
-	public int getFrom() {
-		return from;
-	}
-
-	public int getTo() {
-		return to;
-	}
+	public abstract void stetExtraValue(Object first, Object second);
 	
-	public double getValueH() {
-		return valueH;
-	}
 }

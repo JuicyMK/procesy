@@ -41,13 +41,19 @@ public class EvenlyStep extends ModificationStep{
 				results.add(accumulatedChunk);
 			}
 		}
+		
 		log.debug("EvenlyType: Zaktualizowano listę");
+		lastResult = new ArrayList<>(results);
 		return results;
 	}
 
 	@Override
 	public String getName() {
 		return STEP_NAME;
+	}
+
+	@Override
+	public void stetExtraValue(Object first, Object second) {
 	}
 
 }

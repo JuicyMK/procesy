@@ -39,11 +39,17 @@ public class RandomStep extends ModificationStep{
 			results.set(i, results.get(i) + results.get(i - 1));
 		}
 		
+		log.debug("RandomStep: Zaktualizowano listę");
+		lastResult = results;
 		return results;
 	}
 
 	@Override
 	public String getName() {
 		return STEP_NAME;
+	}
+
+	@Override
+	public void stetExtraValue(Object first, Object second) {
 	}
 }

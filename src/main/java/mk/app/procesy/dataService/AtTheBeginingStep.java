@@ -32,12 +32,18 @@ public class AtTheBeginingStep extends ModificationStep {
 				results.add(valueH);
 			}
 		}
+		
 		log.debug("AtTheBeginingStep: Zaktualizowano listę");
+		lastResult = new ArrayList<>(results);
 		return results;
 	}
 
 	@Override
 	public String getName() {
 		return STEP_NAME;
+	}
+
+	@Override
+	public void stetExtraValue(Object first, Object second) {
 	}
 }
