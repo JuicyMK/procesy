@@ -43,6 +43,7 @@ import lombok.extern.slf4j.Slf4j;
 import mk.app.procesy.dataService.DataSet;
 import mk.app.procesy.dataService.ModificationStep;
 import mk.app.procesy.io.Reader;
+import mk.app.procesy.io.Writer;
 import mk.app.procesy.math.HeatProcessor;
 import mk.app.procesy.math.Interpolation;
 
@@ -84,7 +85,7 @@ public class MainController implements Initializable{
 	@FXML
 	void readData(ActionEvent event) {
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Open Resource File");
+		fileChooser.setTitle("Wczytaj plik");
 		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Text Files", "*.txt"));
 
 		File selectedFile = fileChooser.showOpenDialog(new Stage());
@@ -104,23 +105,6 @@ public class MainController implements Initializable{
 			
 			selectFileBtn.setText("Wczytaj dane");
 			log.warn("File not found");
-		}
-	}
-
-	private void prepareAndSaveDatas(Reader reader) {
-		List<Pair<Integer, Double>> inputData = reader.parse();
-		
-		inputData = Interpolation.interpol(inputData);
-		
-		List<Integer> tmp = inputData.stream().map(e -> e.getLeft()).collect(Collectors.toList());
-		List<Double> computeH = HeatProcessor.compute(inputData);
-		
-		try {
-			data = new DataSet(tmp ,computeH);
-			log.info("Dane do przetwarzania zostały poprawnie zapisane");
-		} catch (Exception e) {
-			data = null;
-			log.error("Błąd łączenia danych: {}", e);
 		}
 	}
 
@@ -151,6 +135,43 @@ public class MainController implements Initializable{
 		}  
     }
 
+	@FXML
+    void saveFile(ActionEvent event) {
+		if (data == null || CollectionUtils.isEmpty(data.getOrgTmpAndH())) {
+			showDialog(mainPane, "Błąd", "Brak danych do zapisania");
+			log.debug("Brak danych do zapisania");
+			return ;
+		}
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Zapisz plik");
+		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Text Files", "*.txt"));
+		
+		File file = fileChooser.showSaveDialog(new Stage());
+		
+		if (file != null) {
+			Writer writer = Writer.getInstance();
+			writer.saveFile(file, data);
+		}
+		
+    }
+
+	private void prepareAndSaveDatas(Reader reader) {
+		List<Pair<Integer, Double>> inputData = reader.parse();
+		
+		inputData = Interpolation.interpol(inputData);
+		
+		List<Integer> tmp = inputData.stream().map(e -> e.getLeft()).collect(Collectors.toList());
+		List<Double> computeH = HeatProcessor.compute(inputData);
+		
+		try {
+			data = new DataSet(tmp ,computeH);
+			log.info("Dane do przetwarzania zostały poprawnie zapisane");
+		} catch (Exception e) {
+			data = null;
+			log.error("Błąd łączenia danych: {}", e);
+		}
+	}
+	
 	void updateSteps() {
 		VBox stepMenu = new VBox(3.0);
 		Text stepsInfo = new Text("Lista dodanych kroków");
@@ -175,15 +196,6 @@ public class MainController implements Initializable{
 			}
 		}
 	}
-
-	@FXML
-    void saveFile(ActionEvent event) {
-		updateMainChart();
-		if (data == null || CollectionUtils.isEmpty(data.getOrgTmpAndH())) {
-			showDialog(mainPane, "Błąd", "Brak danych do zapisania");
-			log.debug("Brak danych do zapisania");
-		}
-    }
 	
 	void showDialog(AnchorPane paneToDisplay, String title, String message) {
 		StackPane dialogPane = new StackPane();
