@@ -118,25 +118,30 @@ public class MainController implements Initializable{
 
 	@FXML
     void modify(ActionEvent event) {
-        try {
-        	StepsController stepsController = new StepsController();
-        	stepsController.setDataSet(data);
-        	
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Steps.fxml"));
-            fxmlLoader.setController(stepsController);
-            
-            Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.setTitle("Dodaj krok");
-            stage.setScene(new Scene(root));
-            stage.show();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        updateSteps();
+		if (data == null) {
+			showDialog("Brak danych", "Przed dodaniem kolejnych kroków, wczytaj dane");
+			log.info("Brak danych: zablokowano możliwość próby dodania kolejnych korków.");
+		} else {
+			try {
+	        	StepsController stepsController = new StepsController();
+	        	stepsController.setDataSet(data);
+	        	
+	            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Steps.fxml"));
+	            fxmlLoader.setController(stepsController);
+	            
+	            Parent root = (Parent) fxmlLoader.load();
+	            Stage stage = new Stage();
+	            stage.initModality(Modality.WINDOW_MODAL);
+	            stage.setTitle("Dodaj krok");
+	            stage.setScene(new Scene(root));
+	            stage.show();
+	        }
+	        catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	        
+	        updateSteps();
+		}  
     }
 
 	private void updateSteps() {
