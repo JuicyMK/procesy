@@ -3,8 +3,6 @@ package mk.app.procesy.dataService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
-import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 
 import org.apache.commons.lang3.tuple.Pair;
