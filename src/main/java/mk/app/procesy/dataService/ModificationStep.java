@@ -32,6 +32,8 @@ public abstract class ModificationStep {
 		return Pair.of(firstIdx, lastIdx);
 	}
 	
+	public abstract String getName();
+	
 	public int getFrom() {
 		return from;
 	}

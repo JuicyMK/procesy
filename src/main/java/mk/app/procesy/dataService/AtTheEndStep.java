@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AtTheEndStep extends ModificationStep {
 
+	private static final String STEP_NAME = "Dodaj na końcu przedziału";
+	
 	public AtTheEndStep(int from, int to, double valueH) {
 		this.from = from;
 		this.to = to;
@@ -32,6 +34,11 @@ public class AtTheEndStep extends ModificationStep {
 		}
 		log.debug("AtTheEndStep: Zaktualizowano listę");
 		return results;
+	}
+
+	@Override
+	public String getName() {
+		return STEP_NAME;
 	}
 
 }

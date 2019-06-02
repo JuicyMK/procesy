@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class RandomStep extends ModificationStep{
 	
+	private static final String STEP_NAME = "Rozlosuj na przedziale";
+	
 	public RandomStep(int from, int to, double valueH) {
 		this.from = from;
 		this.to = to;
@@ -38,5 +40,10 @@ public class RandomStep extends ModificationStep{
 		}
 		
 		return results;
+	}
+
+	@Override
+	public String getName() {
+		return STEP_NAME;
 	}
 }

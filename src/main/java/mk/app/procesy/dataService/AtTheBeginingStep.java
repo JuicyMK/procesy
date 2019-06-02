@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AtTheBeginingStep extends ModificationStep {
 	
+	private static final String STEP_NAME = "Dodaj na początku przedziału";
+	
 	public AtTheBeginingStep(int from, int to, double valueH) {
 		this.from = from;
 		this.to = to;
@@ -32,5 +34,10 @@ public class AtTheBeginingStep extends ModificationStep {
 		}
 		log.debug("AtTheBeginingStep: Zaktualizowano listę");
 		return results;
+	}
+
+	@Override
+	public String getName() {
+		return STEP_NAME;
 	}
 }

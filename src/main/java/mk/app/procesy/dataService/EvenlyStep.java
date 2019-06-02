@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class EvenlyStep extends ModificationStep{
 	
+	private static final String STEP_NAME = "Rozłóż równomiernie";
+	
 	public EvenlyStep(int from, int to, double valueH) {
 		this.from = from;
 		this.to = to;
@@ -41,6 +43,11 @@ public class EvenlyStep extends ModificationStep{
 		}
 		log.debug("EvenlyType: Zaktualizowano listę");
 		return results;
+	}
+
+	@Override
+	public String getName() {
+		return STEP_NAME;
 	}
 
 }
