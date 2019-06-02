@@ -1,5 +1,6 @@
 package mk.app.procesy.dataService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -8,16 +9,27 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class AtTheBeginingStep extends ModificationStep {
+	
+	public AtTheBeginingStep(int from, int to, double valueH) {
+		this.from = from;
+		this.to = to;
+		this.valueH = valueH;
+	}
 
-	public void modify(List<Pair<Integer, Double>> tmpAndH, double valueH) {
+	public List<Double> modify(List<Pair<Integer, Double>> tmpAndH) {
 		log.debug("AtTheBeginingStep: wyszykuje wartość do aktualizacji");
-		for (Pair<Integer, Double> row : tmpAndH) {
-			if (row.getLeft().compareTo(from) == 0) {
-				double h = row.getRight() + valueH;
-				row = Pair.of(to, h);
-				log.debug("AtTheBeginingStep: Dla tmp: {}, zwiększam H do {}", row.getLeft(), h);
-				break;
+		Integer fromValueIndex = lookForScope(tmpAndH).getLeft();
+		
+		List<Double> results = new ArrayList<>(tmpAndH.size());
+		
+		for (int i = 0; i < tmpAndH.size(); i++) {
+			if (i < fromValueIndex) {
+				results.add(0.0);
+			} else {
+				results.add(valueH);
 			}
 		}
+		log.debug("AtTheBeginingStep: Zaktualizowano listę");
+		return results;
 	}
 }
