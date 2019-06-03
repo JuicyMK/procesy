@@ -33,7 +33,9 @@ import mk.app.procesy.dataService.AtTheBeginingStep;
 import mk.app.procesy.dataService.AtTheEndStep;
 import mk.app.procesy.dataService.DataSet;
 import mk.app.procesy.dataService.EvenlyStep;
+import mk.app.procesy.dataService.LinearStep;
 import mk.app.procesy.dataService.ModificationStep;
+import mk.app.procesy.dataService.NormalDistributionStep;
 import mk.app.procesy.dataService.RandomStep;
 
 @Slf4j
@@ -85,8 +87,8 @@ public class StepsController implements Initializable {
 		NumberAxis xAxis = new NumberAxis();
 		NumberAxis yAxis = new NumberAxis();
 		
-		xAxis.setLabel("H");
-		yAxis.setLabel("Temperatura");
+		xAxis.setLabel("Temperatura");
+		yAxis.setLabel("H");
 		
 		chart = new LineChart<Number, Number>(xAxis, yAxis);
 		
@@ -273,6 +275,12 @@ public class StepsController implements Initializable {
     private ModificationStep readFieldsAndGetStep() {
     	if (normalDist.isSelected()) {
     		log.debug("Parsuje pola rozkładu normalnego");
+    		Pair<Double, Double> extraInputFields = readDoubleFromBothInputField();
+    		Triple<Integer, Integer, Double> commonFields = readCommonFields();
+    		if (extraInputFields != null && commonFields != null) {
+    			return new NormalDistributionStep(commonFields.getLeft(), commonFields.getMiddle(),
+    					commonFields.getRight(), extraInputFields.getLeft(), extraInputFields.getRight());
+    		}
     		return null;
     		
     	} else if (random.isSelected()) {
@@ -286,6 +294,16 @@ public class StepsController implements Initializable {
     		
     	} else if (linear.isSelected()) {
     		log.debug("Parsuje pola  dla funkcji liniowej");
+    		Pair<Double, Double> extraInputFields = readDoubleFromBothInputField();
+    		Triple<Integer, Integer, Double> commonFields = readCommonFields();
+    		if (extraInputFields != null && commonFields != null) {
+    			if (extraInputFields.getLeft() <= 0) {
+    				firstInput.setText("Podaj wartość większą od 0");
+    				return null;
+    			}
+    			return new LinearStep(commonFields.getLeft(), commonFields.getMiddle(), commonFields.getRight(), 
+    					extraInputFields.getLeft(), extraInputFields.getRight());
+    		}
     		return null;
     		
     	} else if (evenly.isSelected()) {
@@ -319,37 +337,6 @@ public class StepsController implements Initializable {
     		log.debug("Nie wybrano rodzaju kroku");
     		return null;
     	}
-    }
-    
-    private Pair<Integer, Integer> readIntegerFromBothInputField() {
-    	Integer first = null;
-    	Integer second = null;
-    	
-    	boolean success = true;
-    	
-    	try {
-    		first = Integer.parseInt(firstInput.getText());
-    	} catch (NumberFormatException e) {
-    		firstInput.setText("Błąd: Podaj wartość całkowitą");
-    		success = false;
-    		log.debug("Parsowanie pola firstInput nie powiodło się");
-    	}
-    	
-    	try {
-    		second = Integer.parseInt(secondInput.getText());
-    	} catch (NumberFormatException e) {
-    		secondInput.setText("Błąd: Podaj wartość całkowitą");
-    		success = false;
-    		log.debug("Parsowanie pola secondInput nie powiodło się");
-    	}
-    	
-    	if (success) {
-    		log.debug("Odczytano wartoći całkowite z dodatkowych pól firstInput {}, secondInput {}",
-    				first, second);
-    		return Pair.of(first, second);
-    	}
-    	log.debug("Nie odczytano poprawnie wartości całkowitych z pól wspólnych");
-    	return null;
     }
     
     private Pair<Double, Double> readDoubleFromBothInputField() {
