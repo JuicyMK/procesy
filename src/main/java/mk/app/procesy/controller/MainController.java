@@ -67,11 +67,11 @@ public class MainController implements Initializable{
 		NumberAxis xAxis = new NumberAxis();
 		NumberAxis yAxis = new NumberAxis();
 		
-		xAxis.setLabel("H");
-		yAxis.setLabel("Temperatura");
+		xAxis.setLabel("Temperatura");
+		yAxis.setLabel("Entalpia");
 		
 		chart = new LineChart<Number, Number>(xAxis, yAxis);
-		chart.setTitle("Ciepło");
+		chart.setTitle("Zmiana entalpi");
 		
 		rightAnchor.getChildren().add(chart);
 		rightAnchor.setTopAnchor(chart, 10.0);
@@ -179,6 +179,7 @@ public class MainController implements Initializable{
 		stepsInfo.setTextAlignment(TextAlignment.CENTER);
 		stepMenu.getChildren().add(stepsInfo);
 		stepMenu.setAlignment(Pos.CENTER);
+		stepMenu.setMinWidth(275.0);
 		stepsSP.setContent(stepMenu);
 		
 		if (data != null && !CollectionUtils.isEmpty(data.getSteps())) {
