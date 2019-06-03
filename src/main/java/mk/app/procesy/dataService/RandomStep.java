@@ -40,7 +40,7 @@ public class RandomStep extends ModificationStep{
 		}
 		
 		log.debug("RandomStep: Zaktualizowano listę");
-		lastResult = results;
+		lastResult = new ArrayList<>(results);
 		return results;
 	}
 
