@@ -46,7 +46,8 @@ public class LinearStep extends ModificationStep {
 		}
 
 		if (equationSum != 0) {
-			double aspectRatio = valueH / equationSum;
+			//double aspectRatio = valueH / equationSum;
+			double aspectRatio = 1;
 			log.debug("AspectRatio: H {}, sum {}, = {}", valueH, equationSum, aspectRatio);
 			for (int i = fromIdx; i <= toIdx; i++) {
 				equation.set(i, equation.get(i) * aspectRatio); 

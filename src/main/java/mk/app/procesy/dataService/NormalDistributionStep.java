@@ -45,16 +45,18 @@ public class NormalDistributionStep extends ModificationStep {
 		double partOne = 1.0 / (standardDeviation * Math.sqrt(3.141));
 		double denominator = 2.0 * Math.pow(standardDeviation, 2);
 		
-		for (int i = middle; i <= toIdx; i++) {
-			int x = middle - i;
+		int x = 0;
+		for (int i = (fromIdx + middle); i <= toIdx; i++) {
+			x++;
 			
 			double y = partOne * Math.exp((- Math.pow((x - mean), 2)) / denominator);
 			equationSum += Math.abs(y);
 			equation.set(i, y);
 		}
 		
-		for (int i = fromIdx; i < middle; i++) {
-			int x = middle - i;
+		x = - middle;
+		for (int i = fromIdx; i < (fromIdx + middle); i++) {
+			x++;
 			double y = partOne * Math.exp((- Math.pow((x - mean), 2)) / denominator);
 			equationSum += Math.abs(y);
 			equation.set(i, y);

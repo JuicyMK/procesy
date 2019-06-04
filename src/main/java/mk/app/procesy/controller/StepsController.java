@@ -201,7 +201,7 @@ public class StepsController implements Initializable {
     		initializeOnlyDescription("Wartość ciepła zostanie rozlosowana", "we wskazanym zakresie");
     		log.debug("Buduje menu kontekstowe dla funkcji losującej");
     	} else if (radioBtn.equals(linear)) {
-    		initializeBothField("Wskaż parametry funkcji liniowej", "", "Podaj współczynnik a", "Podaj współczynnik b");
+    		initializeBothField("Wskaż parametry funkcji liniowej.", "Wartość H jest zbędna", "Podaj współczynnik a", "Podaj współczynnik b");
     		log.debug("Buduje menu kontekstowe dla funkcji liniowej");
     	} else if (radioBtn.equals(evenly)) {
     		initializeOnlyDescription("Podana wartość zostanie równomiernie", "rozmieszczona na przedziale");
@@ -239,6 +239,10 @@ public class StepsController implements Initializable {
     }
     
     private void initializeCommonFields() {
+    	initializeCommonFields(false);
+    }
+    
+    private void initializeCommonFields(boolean disableValue) {
     	Separator separator = new Separator();
 
     	scopeFrom = new JFXTextField();
@@ -248,6 +252,7 @@ public class StepsController implements Initializable {
     	scopeFrom.setPromptText("Początek zakresu (minimum: " + ((dataSet != null) ? dataSet.getFirstTmp() : 0) + ")");
     	scopeTo.setPromptText("Podaj koniec zakresu (maximum: " + ((dataSet != null) ? dataSet.getLastTmp() : 0)+ ")");
     	value.setPromptText("Ciepło");
+    	value.setDisable(disableValue);
     	
     	Label tmpDescription = new Label("Podaj zakres temperatur");
     	Label valueDescription = new Label("Podaj ilość ciepła do rozlokowania");
@@ -295,7 +300,7 @@ public class StepsController implements Initializable {
     	} else if (linear.isSelected()) {
     		log.debug("Parsuje pola  dla funkcji liniowej");
     		Pair<Double, Double> extraInputFields = readDoubleFromBothInputField();
-    		Triple<Integer, Integer, Double> commonFields = readCommonFields();
+    		Triple<Integer, Integer, Double> commonFields = readCommonFields(true);
     		if (extraInputFields != null && commonFields != null) {
     			if (extraInputFields.getLeft() <= 0) {
     				firstInput.setText("Podaj wartość większą od 0");
@@ -371,6 +376,10 @@ public class StepsController implements Initializable {
     }
     
     private Triple<Integer, Integer, Double> readCommonFields() {
+    	return readCommonFields(false);
+    }
+    
+    private Triple<Integer, Integer, Double> readCommonFields(boolean disapleValue) {
     	Integer from = null;
     	Integer to = null;
     	Double valueH = null;
@@ -393,17 +402,21 @@ public class StepsController implements Initializable {
     		log.debug("Parsowanie pola scopeTo nie powiodło się");
     	}
     	
-    	try {
-    		valueH = Double.parseDouble(value.getText());
-    		if (valueH <= 0) {
-    			success = false;
-    			value.setText("Wartość powinna być większa od 0");
-    			log.debug("Parsowanie pola value nie powiodło się: wybrano wartość 0 lub mniejszą");
-    		}
-    	} catch (NumberFormatException e) {
-    		value.setText("Błąd: Podaj wartość liczbową");
-    		success = false;
-    		log.debug("Parsowanie pola value nie powiodło się ");
+    	if (!disapleValue) {
+    		try {
+        		valueH = Double.parseDouble(value.getText());
+        		if (valueH <= 0) {
+        			success = false;
+        			value.setText("Wartość powinna być większa od 0");
+        			log.debug("Parsowanie pola value nie powiodło się: wybrano wartość 0 lub mniejszą");
+        		}
+        	} catch (NumberFormatException e) {
+        		value.setText("Błąd: Podaj wartość liczbową");
+        		success = false;
+        		log.debug("Parsowanie pola value nie powiodło się ");
+        	}
+    	} else {
+    		valueH = 0.0;
     	}
     	
     	if (from >= to) {

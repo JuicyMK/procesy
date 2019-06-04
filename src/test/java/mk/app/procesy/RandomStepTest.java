@@ -44,7 +44,10 @@ public class RandomStepTest {
 
 		LinearStep nds = new LinearStep(1, 5, 10.0, 3, 4);
 		List<Double> results = nds.modify(inputList);
+		log.debug("Results: {}", results);
 		
+		nds = new LinearStep(1, 5, 10.0, 1, 11);
+		results = nds.modify(inputList);
 		log.debug("Results: {}", results);
 		//assertArrayEquals(expectedResults.toArray(), results.toArray());
 	}
