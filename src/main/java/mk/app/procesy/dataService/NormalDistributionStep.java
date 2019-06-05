@@ -63,6 +63,7 @@ public class NormalDistributionStep extends ModificationStep {
 		}
 		
 		log.debug("NormalDistribution: {}", equation);
+		equation.stream().forEach(e -> System.out.println(e));
 		
 		if (equationSum != 0) {
 			double aspectRatio = valueH / equationSum;
