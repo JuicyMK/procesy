@@ -30,7 +30,7 @@ public class Writer {
 		try {
 			PrintWriter writer = new PrintWriter(file);
 			writer.println("Wyniki działania programu:");
-			writer.printf(OUTPUT_FORMAT, "Tmp", "H");
+			writer.printf(OUTPUT_FORMAT, "Tmp [\u2103]", "H [kJ/kg]");
 			
 			if(dataSet != null && !CollectionUtils.isEmpty(dataSet.getNewTmpAndH())) {
 				dataSet.getNewTmpAndH().stream().forEachOrdered(e -> {

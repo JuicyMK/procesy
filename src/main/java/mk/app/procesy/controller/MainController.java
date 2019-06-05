@@ -67,8 +67,8 @@ public class MainController implements Initializable{
 		NumberAxis xAxis = new NumberAxis();
 		NumberAxis yAxis = new NumberAxis();
 		
-		xAxis.setLabel("Temperatura");
-		yAxis.setLabel("Entalpia");
+		xAxis.setLabel("Temperatura [\u2103]");
+		yAxis.setLabel("Entalpia [kJ/kg]");
 		
 		chart = new LineChart<Number, Number>(xAxis, yAxis);
 		chart.setTitle("Zmiana entalpi");

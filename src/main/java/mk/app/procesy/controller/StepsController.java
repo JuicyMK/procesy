@@ -87,8 +87,8 @@ public class StepsController implements Initializable {
 		NumberAxis xAxis = new NumberAxis();
 		NumberAxis yAxis = new NumberAxis();
 		
-		xAxis.setLabel("Temperatura");
-		yAxis.setLabel("H");
+		xAxis.setLabel("Temperatura [\u2103]");
+		yAxis.setLabel("Entalpia [kJ/kg]");
 		
 		chart = new LineChart<Number, Number>(xAxis, yAxis);
 		
@@ -249,9 +249,9 @@ public class StepsController implements Initializable {
     	scopeTo = new JFXTextField();
     	value = new JFXTextField();
     	
-    	scopeFrom.setPromptText("Początek zakresu (minimum: " + ((dataSet != null) ? dataSet.getFirstTmp() : 0) + ")");
-    	scopeTo.setPromptText("Podaj koniec zakresu (maximum: " + ((dataSet != null) ? dataSet.getLastTmp() : 0)+ ")");
-    	value.setPromptText("Ciepło");
+    	scopeFrom.setPromptText("Początek zakresu (min: " + ((dataSet != null) ? dataSet.getFirstTmp() : 0) + ") [\u2103] ");
+    	scopeTo.setPromptText("Podaj koniec zakresu (max: " + ((dataSet != null) ? dataSet.getLastTmp() : 0)+ ") [\u2103] ");
+    	value.setPromptText("Ciepło [kJ]");
     	value.setDisable(disableValue);
     	
     	Label tmpDescription = new Label("Podaj zakres temperatur");
